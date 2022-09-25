@@ -20,6 +20,6 @@
             
         </form> 
         ${ageMessage}<br>
-            <a href="/arithmetic">Arithmetic Calculator</a> 
+            <a href="arithmetic">Arithmetic Calculator</a> 
     </body>
 </html>
