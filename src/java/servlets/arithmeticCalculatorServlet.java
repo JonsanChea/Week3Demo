@@ -24,6 +24,14 @@ public class arithmeticCalculatorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String calculated = "---";
+        request.setAttribute("calculated", calculated);
+        String firstNum = request.getParameter("firstNum");
+        String secondNum = request.getParameter("secondNum");
+        request.setAttribute("firstNum", firstNum);  
+        request.setAttribute("secondNum", secondNum);  
+       
        getServletContext().getRequestDispatcher("/WEB-INF/arithmeticCalculator.jsp")
                 .forward(request, response);
     }
@@ -31,35 +39,56 @@ public class arithmeticCalculatorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int firstNum = Integer.parseInt(request.getParameter("firstNum"));
-        int secondNum = Integer.parseInt(request.getParameter("secondNum"));
-        String calculated;
-       
+            throws ServletException, IOException{
+        
+        String firstNum = request.getParameter("firstNum");
+        String secondNum = request.getParameter("secondNum");
+        
+       /*
+        int firstInt = Integer.parseInt(request.getParameter("firstNum"));
+        int secondInt = Integer.parseInt(request.getParameter("secondNum"));
+        */
+        
         String calculate = request.getParameter("calculate");
-        try{
-        if(calculate.equals("+")){
-            calculated = Integer.toString(firstNum + secondNum);
+        /*
+        request.setAttribute("firstNum", firstNum);
+        request.setAttribute("secondNum", secondNum);
+        */
+       
+        String calculated = "";
+            
+            if(firstNum == null || firstNum.equals("") || secondNum == null || secondNum.equals("")){ 
+                
+                request.setAttribute("calculated", "invalid try again");
+            
+            }else if (calculate.equals("+")){
+                int firstInt = Integer.parseInt(firstNum);
+                int secondInt = Integer.parseInt(secondNum);
+                 calculated = Integer.toString(firstInt + secondInt);
             request.setAttribute("calculated", calculated);
-        }else if (calculate.equals("-")){
-                calculated = Integer.toString(firstNum - secondNum);
+            }else if (calculate.equals("-")){
+                int firstInt = Integer.parseInt(firstNum);
+                int secondInt = Integer.parseInt(secondNum);
+                 calculated = Integer.toString(firstInt - secondInt);
             request.setAttribute("calculated", calculated);
             } else if (calculate.equals("*")){
-                calculated = Integer.toString(firstNum * secondNum);
-                request.setAttribute("calculated", calculated);
+                int firstInt = Integer.parseInt(firstNum);
+                int secondInt = Integer.parseInt(secondNum);
+                 calculated = Integer.toString(firstInt + secondInt);
+            request.setAttribute("calculated", calculated);
             } else if (calculate.equals("%")){
-                calculated = Integer.toString(firstNum % secondNum);
-                request.setAttribute("calculated", calculated);
+                int firstInt = Integer.parseInt(firstNum);
+                int secondInt = Integer.parseInt(secondNum);
+                 calculated = Integer.toString(firstInt + secondInt);
+            request.setAttribute("calculated", calculated);
             }
-        }
-            catch (NumberFormatException e){
-           calculated = "Try inserting numbers";
-       }
-              
-        
+         
         getServletContext().getRequestDispatcher("/WEB-INF/arithmeticCalculator.jsp")
                .forward(request, response);
+   
+}
+    }
+
+
     
 
-}
-}
